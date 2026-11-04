@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Questionnaire Masquage Appelant (BYOD) - B&A Conseil</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #111;
+      line-height: 1.4;
+      margin: 0;
+      padding: 30px;
+      background-color: #f8f9fa;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 40px;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 10px rgba(199, 197, 114, 0.05);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #cad396;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    .logo-container {
+      flex: 0 0 auto;
+    }
+    .logo-container img {
+      max-height: 55px;
+      width: auto;
+      display: block;
+    }
+    .doc-title {
+      text-align: right;
+    }
+    .doc-title h1 {
+      font-size: 15px;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .doc-title p {
+      margin: 4px 0 0 0;
+      font-size: 12px;
+      color: #555;
+    }
+    .header-actions {
+      flex: 0 0 auto;
+      margin-left: 20px;
+    }
+    .btn-pdf {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: background-color 0.2s, opacity 0.2s;
+    }
+    .btn-pdf:hover {
+      background-color: #333;
+    }
+    .btn-pdf:focus {
+      outline: 2px solid #0056b3;
+      outline-offset: 2px;
+    }
+    .intro {
+      background-color: #f1f3f5;
+      padding: 12px 15px;
+      border-left: 4px solid #000;
+      margin-bottom: 25px;
+      font-size: 12.5px;
+    }
+    h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      background-color: #000;
+      color: #fff;
+      padding: 6px 10px;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+    th {
+      background-color: #e9ecef;
+      text-align: left;
+      font-size: 11.5px;
+      text-transform: uppercase;
+    }
+    .col-num { width: 5%; text-align: center; font-weight: bold; }
+    .col-q { width: 35%; font-weight: bold; }
+    .col-opt { width: 35%; }
+    .col-rep { width: 25%; }
+
+    label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 6px;
+      cursor: pointer;
+    }
+    label:last-child { margin-bottom: 0; }
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      margin-top: 1px;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-family: inherit;
+      font-size: 12px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+    .footer {
+      margin-top: 30px;
+      padding-top: 15px;
+      border-top: 1px solid #ccc;
+      text-align: center;
+      font-size: 11px;
+      color: #666;
+    }
+
+    @media print {
+      body { background: none; padding: 0; }
+      .container { border: none; box-shadow: none; padding: 0; width: 100%; max-width: none; }
+      input[type="text"], textarea { border: 1px solid #aaa; }
+      .btn-pdf { display: none; }
+      .header-actions { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- EN-TÊTE AVEC LE LOGO DANS LE FORMULAIRE (EN HAUT À GAUCHE) -->
+  <div class="header">
+    <div class="logo-container">
+      <img src="https://ba-conseil.fr/wp-content/uploads/2024/02/cropped-logo-ba.png" alt="Logo B&A Conseil">
+    </div>
+    <div class="doc-title">
+      <h1>Questionnaire d'expression de besoin</h1>
+      <p>Masquage du numéro appelant (BYOD transporteurs)</p>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn-pdf" onclick="saveAsPDF()" aria-label="Enregistrer le formulaire au format PDF">
+        Enregistrer
+      </button>
+    </div>
+  </div>
+
+  <div class="intro">
+    Ce questionnaire sert à cadrer la solution de masquage ou de présentation du numéro lorsque vos <strong>10 000 transporteurs</strong>, équipés de leur téléphone personnel (BYOD), appellent les destinataires avant livraison. Merci de cocher les options et de compléter les champs de réponse.
+  </div>
+
+  <!-- RÉPONDANT -->
+  <h2>Informations Répondant</h2>
+  <table>
+    <tr>
+      <td style="width: 20%; font-weight: bold;">Société</td>
+      <td><input type="text" placeholder="Nom de l'entreprise"></td>
+      <td style="width: 20%; font-weight: bold;">Nom & Prénom</td>
+      <td><input type="text" placeholder="Votre nom et prénom"></td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold;">Fonction</td>
+      <td><input type="text" placeholder="Votre poste/fonction"></td>
+      <td style="font-weight: bold;">E-mail / Tél.</td>
+      <td><input type="text" placeholder="E-mail / Téléphone"></td>
+    </tr>
+  </table>
+
+  <!-- SECTION 1 -->
+  <h2>1. Finalité et usage</h2>
+  <table>
+    <thead>
+      <tr>
+        <th class="col-num">N°</th>
+        <th class="col-q">Question</th>
+        <th class="col-opt">Options proposées</th>
+        <th class="col-rep">Précisions / Réponse</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-num">Q1</td>
+        <td class="col-q">Quel est l'objectif principal ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> Protéger le numéro du livreur</label>
+          <label><input type="checkbox"> Ne pas exposer le numéro du destinataire</label>
+          <label><input type="checkbox"> Les deux</label>
+        </td>
+        <td><input type="text" placeholder="Précisions..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q2</td>
+        <td class="col-q">Que doit voir le destinataire de l'appel ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> Numéro masqué</label>
+          <label><input type="checkbox"> Numéro unique de l'entreprise</label>
+          <label><input type="checkbox"> Numéro par agence</label>
+          <label><input type="checkbox"> Numéro par tournée</label>
+        </td>
+        <td><input type="text" placeholder="Précisions..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q3</td>
+        <td class="col-q">Le destinataire doit-il pouvoir rappeler le livreur ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> Oui</label>
+          <label><input type="checkbox"> Non</label>
+        </td>
+        <td><input type="text" placeholder="Si oui, durée (livraison, tournée, journée)..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q4</td>
+        <td class="col-q">Les SMS envoyés par le livreur sont-ils concernés ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> Oui</label>
+          <label><input type="checkbox"> Non</label>
+        </td>
+        <td><input type="text" placeholder="Exemples de SMS envoyés..."></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 2 -->
+  <h2>2. Population et terminaux</h2>
+  <table>
+    <thead>
+      <tr>
+        <th class="col-num">N°</th>
+        <th class="col-q">Question</th>
+        <th class="col-opt">Options proposées</th>
+        <th class="col-rep">Précisions / Réponse</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-num">Q5</td>
+        <td class="col-q">Quel est le statut des transporteurs ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> Salariés</label>
+          <label><input type="checkbox"> Intérimaires</label>
+          <label><input type="checkbox"> Sous-traitants / Indépendants</label>
+        </td>
+        <td><input type="text" placeholder="Nombre d'entreprises concernées..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q6</td>
+        <td class="col-q">Quel est le rythme d'arrivée et de départ des livreurs ?</td>
+        <td class="col-opt">Turnover annuel estimé, activations par mois, pics saisonniers.</td>
+        <td><input type="text" placeholder="Détails turnover et flux..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q7</td>
+        <td class="col-q">Quelle est la répartition du parc de téléphones ?</td>
+        <td class="col-opt">% iOS / % Android, versions Android, inventaire existant.</td>
+        <td><input type="text" placeholder="% iOS vs Android..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q8</td>
+        <td class="col-q">Un MDM est-il déjà en place sur ces téléphones ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> Non</label>
+          <label><input type="checkbox"> Oui</label>
+        </td>
+        <td><input type="text" placeholder="Si oui, outil (SOTI...) et profil..."></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 3 -->
+  <h2>3. Applications et lignes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th class="col-num">N°</th>
+        <th class="col-q">Question</th>
+        <th class="col-opt">Options proposées</th>
+        <th class="col-rep">Précisions / Réponse</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-num">Q9</td>
+        <td class="col-q">Les livreurs utilisent-ils une application de livraison imposée ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> Non</label>
+          <label><input type="checkbox"> Oui</label>
+        </td>
+        <td><input type="text" placeholder="Nom, éditeur, disponibilité d'une API..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q10</td>
+        <td class="col-q">Une application supplémentaire (type Centrex/softphone) est-elle acceptable ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> Oui</label>
+          <label><input type="checkbox"> Non, tout dans l'app métier</label>
+          <label><input type="checkbox"> À étudier</label>
+        </td>
+        <td><input type="text" placeholder="Remarques..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q11</td>
+        <td class="col-q">Qui finance la ligne mobile, et une eSIM pro financée par vous est-elle envisageable ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> eSIM pro envisageable</label>
+          <label><input type="checkbox"> Non envisageable</label>
+        </td>
+        <td><input type="text" placeholder="Titulaire et payeur actuel..."></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 4 -->
+  <h2>4. Volumétrie, couverture et conformité</h2>
+  <table>
+    <thead>
+      <tr>
+        <th class="col-num">N°</th>
+        <th class="col-q">Question</th>
+        <th class="col-opt">Options proposées</th>
+        <th class="col-rep">Précisions / Réponse</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-num">Q12</td>
+        <td class="col-q">Quel est le volume d'appels ?</td>
+        <td class="col-opt">Nombre d'appels par livreur et par jour, durée moyenne.</td>
+        <td><input type="text" placeholder="Nb d'appels/jour, durée..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q13</td>
+        <td class="col-q">Les livraisons ont-elles lieu en zones mal couvertes / spécifiques ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> Rural</label>
+          <label><input type="checkbox"> Sous-sols / Parkings</label>
+          <label><input type="checkbox"> Entrepôts</label>
+          <label><input type="checkbox"> Non</label>
+        </td>
+        <td><input type="text" placeholder="Part estimée des tournées concernées..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q14</td>
+        <td class="col-q">Quelle traçabilité des appels est attendue ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> Journaux d'appels</label>
+          <label><input type="checkbox"> Enregistrement des appels</label>
+          <label><input type="checkbox"> Preuve de tentative de contact</label>
+          <label><input type="checkbox"> Aucune</label>
+        </td>
+        <td><input type="text" placeholder="Précisions traçabilité..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q15</td>
+        <td class="col-q">Quelles exigences RGPD et d'hébergement s'appliquent ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> DPO à associer</label>
+          <label><input type="checkbox"> AIPD requise</label>
+          <label><input type="checkbox"> Hébergement France</label>
+          <label><input type="checkbox"> Hébergement UE</label>
+        </td>
+        <td><input type="text" placeholder="Contraintes particulières..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q16</td>
+        <td class="col-q">Quel est le périmètre géographique des appels ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> France uniquement</label>
+          <label><input type="checkbox"> Appels vers/depuis l'étranger</label>
+        </td>
+        <td><input type="text" placeholder="Pays concernés..."></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 5 -->
+  <h2>5. Contrôle, calendrier et budget</h2>
+  <table>
+    <thead>
+      <tr>
+        <th class="col-num">N°</th>
+        <th class="col-q">Question</th>
+        <th class="col-opt">Options proposées</th>
+        <th class="col-rep">Précisions / Réponse</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-num">Q17</td>
+        <td class="col-q">Le masquage doit-il être imposé et vérifiable ?</td>
+        <td class="col-opt">
+          <label><input type="checkbox"> Oui, imposé et contrôlé</label>
+          <label><input type="checkbox"> Une consigne aux livreurs suffit</label>
+        </td>
+        <td><input type="text" placeholder="Remarques..."></td>
+      </tr>
+      <tr>
+        <td class="col-num">Q18</td>
+        <td class="col-q">Quels sont l'échéance, le pilote et le budget envisagés ?</td>
+        <td class="col-opt">Date de mise en service, pilote possible (ex. 200 livreurs), enveloppe par livreur/mois.</td>
+        <td><input type="text" placeholder="Date, taille pilote, enveloppe budget..."></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- REMARQUES LIBRES -->
+  <h2>Remarques libres</h2>
+  <textarea placeholder="Commentaires, contraintes ou attentes non couvertes ci-dessus..."></textarea>
+
+  <div class="footer">
+    Merci de retourner ce questionnaire complété à <strong>B&A Conseil</strong>. Nous vous proposerons ensuite un atelier de restitution et un scénario cible chiffré.
+  </div>
+
+</div>
+
+<script>
+  function saveAsPDF() {
+    // Déclenche la boîte de dialogue d'impression du navigateur
+    // L'utilisateur peut alors choisir "Enregistrer au format PDF" comme imprimante
+    window.print();
+  }
+</script>
+
+</body>
+</html>
